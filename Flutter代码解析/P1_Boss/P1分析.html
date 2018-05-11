@@ -1,0 +1,2664 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>P1分析</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+ //是否显示导航栏
+ var showNavBar = true;
+ //是否展开导航栏
+ var expandNavBar = true;
+ var currentIndex = 0;
+ var currentScrollHigh = 0;
+ var currentContentScrollHigh = 0;
+ function sleep(numberMillis) {  
+    var now = new Date();  
+    var exitTime = now.getTime() + numberMillis;  
+    while (true) {  
+        now = new Date();  
+        if (now.getTime() > exitTime)  
+        return;  
+        }  
+}
+
+
+$(window).onbeforeunload = function(){ 
+currentIndex = 0;
+} 
+
+
+ $(window).load(function(){
+    var h1s = $("body").find("h1");
+    var h2s = $("body").find("h2");
+    var h3s = $("body").find("h3");
+    var h4s = $("body").find("h4");
+    var h5s = $("body").find("h5");
+    var h6s = $("body").find("h6");
+
+    var headCounts = [h1s.length, h2s.length, h3s.length, h4s.length, h5s.length, h6s.length];
+    var vH1Tag = null;  // 显示的最高层级
+    var vH2Tag = null;   // 显示的最低层级
+var sum = 0;
+
+
+    for(var i = 0; i < headCounts.length; i++){
+          if(headCounts[i] > 0){
+		  for( var y = 0; y < headCounts[i]; y++)
+		         sum = sum + 1;
+		  }
+    }
+    for(var i = 0; i < headCounts.length; i++){
+        if(headCounts[i] > 0){
+            if(vH1Tag == null){
+                vH1Tag = 'h' + (i + 1);
+            }else{
+                vH2Tag = 'h' + (i + 1);
+            }
+        }
+    }
+    if(vH1Tag == null){
+        return;
+    }
+
+    $("body").prepend('<div class="BlogAnchor">' + 
+        '<span style="color:red;position:absolute;top:-6px;left:0px;cursor:pointer;" onclick="$(\'.BlogAnchor\').hide();">×</span>' +
+        '<p>' + 
+            '<b id="AnchorContentToggle" title="收起" style="cursor:pointer;">目录▲</b>' + 
+        '</p>' + 
+        '<div class="AnchorContent" id="AnchorContent"> </div>' + 
+    '</div>' );
+
+    var vH1Index = 0;
+    var vH2Index = 0;
+	
+	
+    var vIndexH1 = 0;
+    var vIndexH2 = 0;
+    var vIndexH3 = 0;
+    var vIndexH4 = 0;
+    var vIndexH5 = 0;
+    var vIndexH6 = 0;
+	var headerALL = [];
+	var headerIDALL = [];
+	var headerHightALL = [];
+    $("body").find("h1,h2,h3,h4,h5,h6").each(function(i,item){
+
+        var id = '';
+        var name = '';
+        var tag = $(item).get(0).tagName.toLowerCase();
+		var className = '';
+		// i=0 tag=h1          i=1 tag=h2     i=2 tag=h2
+
+        if(tag == "h1"){
+            id = name = ++vIndexH1;
+    vIndexH2 = 0;
+    vIndexH3 = 0;
+    vIndexH4 = 0;
+    vIndexH5 = 0;
+    vIndexH6 = 0;
+    className = 'item_h1';
+			
+//alert("tag ="+ tag +"----   i = "+ i + " name ="+ name +"    className= "+ className);
+//tag =h1----   i = 0 name =1    className= item_h1
+        }else if(tag == "h2"){
+		
+            id = vIndexH1 + '_' + ++vIndexH2;
+            name = vIndexH1 + '.' + vIndexH2;
+            className = 'item_h2'; 
+    vIndexH3 = 0;
+    vIndexH4 = 0;
+    vIndexH5 = 0;
+    vIndexH6 = 0;
+	
+       }else if(tag == "h3"){
+            id = vIndexH1 + '_' + vIndexH2+ '_' + ++vIndexH3;
+            name = vIndexH1 + '.' + vIndexH2+ '.' + +vIndexH3;
+            className = 'item_h3'; 
+    vIndexH4 = 0;
+    vIndexH5 = 0;
+    vIndexH6 = 0;
+	   
+	   }
+	   
+	   else if(tag == "h4"){
+            id = vIndexH1 + '_' + vIndexH2+ '_'  +vIndexH3 +'_'+ ++vIndexH4 ;
+            name =  vIndexH1 + '.' + vIndexH2+ '.'  +vIndexH3 +'.'+  vIndexH4 ;
+            className = 'item_h4';
+    vIndexH5 = 0;
+    vIndexH6 = 0; 
+	   }
+	   
+	   else if(tag == "h5"){
+            id = vIndexH1 + '_' + vIndexH2+ '_'  +vIndexH3 +'_' +vIndexH4+'_'+ ++vIndexH5;
+            name = vIndexH1 + '.' + vIndexH2+ '.'  +vIndexH3 +'.' +vIndexH4+'.'+ vIndexH5;
+            className = 'item_h5'; 
+            vIndexH6 = 0; 
+	   }
+	   
+	   else if(tag == "h6"){
+            id = vIndexH1 + '_' + vIndexH2+ '_'  +vIndexH3 +'_' +vIndexH4+'_' +vIndexH5+'_'+ ++vIndexH6;
+            name = vIndexH1 + '.' + vIndexH2+ '.'  +vIndexH3 +'.' +vIndexH4+'.' +vIndexH5+'.'+ vIndexH6;
+            className = 'item_h6'; 
+	   
+	   }
+	    if(name.length > 2){
+		
+		var mFirstName = name.substring(0,2);
+		while(mFirstName == "0."){
+		name = name.substring(2,name.length);
+		mFirstName = name.substring(0,2);
+         }
+		 
+		}
+        $(item).attr("id","wow"+id+"_index_"+i);
+        $(item).addClass("wow_head");
+		var itemHeight = $(item).offset().top
+        $("#AnchorContent").css('max-height', ($(document).height()) + 'px');
+		$("#AnchorContent").css('height', ($(window).height()) + 'px');
+		$("#AnchorContent").css('overflow','auto');
+        $("#AnchorContent").append('<li><a class="nav_item '+className+' anchor-link"  href="#wow'+id+'_index_'+i+'" link="#wow'+id+'" index="'+i+'">'+name+"✶"+$(this).text()+" "+'</a></li>');
+    	var str = "#wow"+id+"_index_"+i;
+		headerALL.push($(item));
+		headerIDALL.push(str);
+		console.log("  i = "+ i +"   id =" + id +"  itemHeight = "+ itemHeight);
+	});
+
+	// 1
+	// 1.1
+	// 1.1.1
+	// 1.1.1.1
+	// 1.1.1.1.1
+	// 1.1.1.1.1.1
+    $("#AnchorContentToggle").click(function(){
+        var text = $(this).html();
+        if(text=="目录▲"){
+            $(this).html("目录▼");
+            $(this).attr({"title":"展开"});
+        }else{
+            $(this).html("目录▲");
+            $(this).attr({"title":"收起"});
+        }
+        $("#AnchorContent").toggle();
+    });
+   
+   
+$(".anchor-link").click(function(){
+
+        //$("html,body").animate({scrollTop: $($(this).attr("link")).offset().top}, 10);
+		var index  = $(this).attr("index");
+                $(".BlogAnchor li .nav_item.current").removeClass('current');
+                $(headerNavs[index]).addClass('current');
+					  var scrollTop = $(window).scrollTop(); // 获得将要到达的点离顶距离
+					  currentScrollHigh = scrollTop;
+					  currentContentScrollHigh = headerHightALL[index];
+	  var value = headerTops[index];
+	  currentIndex = value;
+	  console.log("index = "+ index+ "  headerTops["+index+"] ="+ value + "scrollTop="+ scrollTop);
+    });
+
+	
+
+
+
+    var headerNavs = $(".BlogAnchor li .nav_item");
+    var headerTops = [];
+	var mHeight = 0;
+    $(".wow_head").each(function(i, n){
+	var value = $(n).offset().top;
+
+        headerTops.push($(n).offset().top);
+		 console.log("i = "+ i+ "  offset().top ="+ value);
+    });
+	headerTops.push($(document).height());
+
+window.onresize = function(){
+
+headerTops = [];
+$.each(headerNavs, function(i, n){
+$(n).trigger("click"); 
+document.querySelector(headerIDALL[i]).scrollIntoView(true);
+//var high = $(n).offset().top;
+var scrollTop = $(window).scrollTop();
+headerTops.push(scrollTop);
+console.log("headerNavs_index="+i +"   scrollTop="+scrollTop +"  headerTops="+headerTops[i]);
+}
+);
+headerTops.push($(document).height());
+
+//$("#AnchorContent").height($(window).height());
+$("#AnchorContent").css('height', ($(window).height()) + 'px');
+var xcontentWidth =  $("#AnchorContent").width();
+var xWidth = $(window).width();
+var xlength = xWidth - xcontentWidth;
+$("body").css("marginLeft",xcontentWidth+'px');
+$("body").css("max-width",xlength);
+
+$(headerNavs[currentIndex]).trigger("click"); 
+document.querySelector(headerIDALL[i]).scrollIntoView(true);
+
+
+}
+
+
+
+
+
+	
+	
+
+
+$(window).scroll(function(){
+        var scrollTop = $(window).scrollTop(); // 获得将要到达的点离顶距离
+
+		$.each(headerTops, function(i, n){
+            if( (scrollTop >= (headerTops[i])  && scrollTop < (headerTops[i+1] -1))  ){
+                console.log("headerTops[i-1]"+headerTops[i-1]+"headerTops[i]"+headerTops[i]+"  scrollTop ="+ scrollTop+"  headerTops[i+1]= "+headerTops[i+1] +"  i ="+i);
+                $(".BlogAnchor li .nav_item.current").removeClass('current');
+                $(headerNavs[i]).addClass('current');
+				currentScrollHigh = scrollTop;
+				currentContentScrollHigh = headerHightALL[i];
+				currentIndex = i;
+				var mxxHeight = $("#AnchorContent").height()
+				var mscrollTop1 = $("#AnchorContent").scrollTop();  // 当前标签的高度
+			console.log("zukgit2 currentIndex="+ currentIndex );
+				console.log("zukgit2 windows.scrollTop="+ scrollTop );
+				console.log("zukgit2 $(window).height()="+ $(window).height() );
+				console.log("zukgit2 currentContentScrollHigh="+ currentContentScrollHigh );
+				console.log("zukgit2 AnchorContent.mscrollTop="+ mscrollTop1 );
+				console.log("zukgit2 AnchorContent.high="+ mxxHeight );
+				if((currentContentScrollHigh - mscrollTop1)>  ($(window).height()/2)){ //↓ // 如果当前index超出  界面的高度
+				//var sum =   Math.floor(headerHightALL(i) / $(window).height());
+				var dif = currentContentScrollHigh - mscrollTop1;
+				$("#AnchorContent").animate({scrollTop: (currentContentScrollHigh)}, 50);
+				console.log("  i(zukgit3) = "+ i +"   currentContentScrollHigh =" + currentContentScrollHigh +"  mscrollTop1 = "+ mscrollTop1);
+				console.log(" $(window).height()="+ $(window).height() );
+				
+				} else if( ( mscrollTop1 - currentContentScrollHigh )>  0 ){  //↑
+				$("#AnchorContent").animate({scrollTop: currentContentScrollHigh-($("#AnchorContent").height()/3)}, 50);
+				console.log("  i(zukgit4) = "+ i +"   currentContentScrollHigh =" + currentContentScrollHigh +"  mscrollTop1 = "+ mscrollTop1);
+				console.log(" $(window).height()="+ $(window).height() +"   $(#AnchorContent).height()="+mxxHeight);
+				}
+
+                return false;
+            }
+        }
+		);
+		if(scrollTop == 0){
+        $("#AnchorContent").animate({scrollTop: 0}, 50);
+		}
+		if(scrollTop == $(document).height()){
+        $("#AnchorContent").animate({scrollTop: headerHightALL[headerHightALL.length-1]}, 50);
+		}
+    });
+
+	
+$.each(headerNavs, function(i, n){
+var high = $(n).offset().top;
+headerHightALL.push(high);
+console.log("high"+high);
+}
+);
+
+
+headerTops = [];
+$.each(headerNavs, function(i, n){
+
+$(n).trigger("click"); 
+document.querySelector(headerIDALL[i]).scrollIntoView(true);
+
+var scrollTop = $(window).scrollTop();
+
+headerTops.push(scrollTop);
+console.log("headerNavs_index="+i +"   scrollTop="+scrollTop +"  headerTops="+headerTops[i]);
+
+}
+);
+
+
+
+headerTops.push($(document).height());
+$(headerNavs[0]).trigger("click"); 
+document.querySelector(headerIDALL[0]).scrollIntoView(true);
+
+
+
+
+var xcontentWidth =  $("#AnchorContent").width();
+var xWidth = $(window).width();
+var xlength = xWidth - xcontentWidth;
+$("body").css("marginLeft",xcontentWidth+'px');
+$("body").css("max-width",xlength);
+
+    if(!showNavBar){
+        $('.BlogAnchor').hide();
+    }
+    if(!expandNavBar){
+        $(this).html("目录▼");
+        $(this).attr({"title":"展开"});
+        $("#AnchorContent").hide();
+    }
+ });
+ 
+ 
+ 
+</script>
+<style>
+    /*导航*/
+    .BlogAnchor {
+        //background: #f1f1f1;
+		background: #ffffff;
+        //padding: 10px;
+        line-height: 180%;
+        position: fixed;
+        left: 0px;   // right: 48px;  
+        top: 0px;
+        border: 1px solid #aaaaaa;
+		width: 20%;
+	    height:100%;
+    }
+    .BlogAnchor p {
+        font-size: 18px;
+        color: #15a230;
+        margin: 0 0 0.3rem 0;
+        text-align: right;
+    }
+    .BlogAnchor .AnchorContent {
+        //padding: 5px 0px;
+        overflow: auto;
+
+    }
+    .BlogAnchor li{
+        text-indent: 0.5rem;
+        font-size: 14px;
+        list-style: none;
+    }
+    .BlogAnchor li .nav_item{
+        padding: 3px;
+    }
+    .BlogAnchor li .item_h1{
+        margin-left: 0rem;
+    }
+    .BlogAnchor li .item_h2{
+        margin-left: 2rem;
+        font-size: 0.8rem;
+    }
+	
+    .BlogAnchor li .item_h3{
+        margin-left: 4rem;
+        font-size: 0.8rem;
+    }
+	
+	.BlogAnchor li .item_h4{
+        margin-left: 5rem;
+        font-size: 0.8rem;
+    }
+	
+	.BlogAnchor li .item_h5{
+        margin-left: 6rem;
+        font-size: 0.8rem;
+    }
+	
+	
+	.BlogAnchor li .item_h6{
+        margin-left: 7rem;
+        font-size: 0.8rem;
+    }
+	
+    .BlogAnchor li .nav_item.current{
+        color: white;
+        background-color: #5cc26f;
+    }
+    #AnchorContentToggle {
+        font-size: 13px;
+        font-weight: normal;
+        color: #FFF;
+        display: inline-block;
+        line-height: 20px;
+        background: #5cc26f;
+        font-style: normal;
+        padding: 1px 8px;
+    }
+    .BlogAnchor a:hover {
+        color: #5cc26f;
+    }
+    .BlogAnchor a {
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+<h1 id="-git-flutter-boss-">对Git中Flutter项目的分析 仿Boss直聘</h1>
+<p>项目地址: <a href="https://github.com/ZukGit/Flutter_P1">https://github.com/ZukGit/Flutter_P1</a></p>
+<p><strong>效果 以及代码结构</strong><br><img src="img/1.gif">   <img src="img/1.jpg" height="80%">   </p>
+<h1 id="-">代码总集</h1>
+<h2 id="main-dart-">main.dart   (程序入口)</h2>
+<pre><code>main.dart
+import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/splash.dart&#39;;
+
+void main() {
+  runApp(new MaterialApp(
+    title: &quot;Boss直聘&quot;,
+    theme: new ThemeData(
+      primaryIconTheme: const IconThemeData(color: Colors.white),
+      brightness: Brightness.light,
+      primaryColor: new Color.fromARGB(255, 0, 215, 198),
+      accentColor: Colors.cyan[300],
+    ),
+    home: new SplashPage()));
+}
+</code></pre><h2 id="splash-dart-">splash.dart (启动画面页)</h2>
+<pre><code>splash.dart
+import &#39;dart:async&#39;;
+
+import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/home.dart&#39;;
+
+class SplashPage extends StatefulWidget {
+  @override
+  SplashState createState() =&gt; new SplashState();
+}
+
+class SplashState extends State&lt;SplashPage&gt; {
+
+  Timer _t;
+
+  @override
+  void initState() {
+    super.initState();
+    _t = new Timer(const Duration(milliseconds: 1500), () {
+      try {
+        Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(
+            builder: (BuildContext context) =&gt; new BossApp()), (
+            Route route) =&gt; route == null);
+      } catch (e) {
+
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _t.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Material(
+      color: new Color.fromARGB(255, 0, 215, 198),
+      child: new Padding(
+        padding: const EdgeInsets.only(
+          top: 150.0,
+        ),
+        child: new Column(
+          children: &lt;Widget&gt;[
+            new Text(&quot;BOSS直聘&quot;,
+              style: new TextStyle(color: Colors.white,
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.bold),),
+          ],
+        ),
+      ),
+    );
+  }
+}
+</code></pre><h2 id="home-dart-">home.dart (主页面)</h2>
+<pre><code>home.dart
+import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/component/icon_tab.dart&#39;;
+import &#39;package:flutter_app/app/view/company/company_view.dart&#39;;
+import &#39;package:flutter_app/app/view/jobs_view.dart&#39;;
+import &#39;package:flutter_app/app/view/message_view.dart&#39;;
+import &#39;package:flutter_app/app/view/mine_view.dart&#39;;
+
+const double _kTabTextSize = 11.0;
+const int INDEX_JOB = 0;
+const int INDEX_COMPANY = 1;
+const int INDEX_MESSAGE = 2;
+const int INDEX_MINE = 3;
+Color _kPrimaryColor = new Color.fromARGB(255, 0, 215, 198);
+
+class BossApp extends StatefulWidget {
+  @override
+  HomeState createState() =&gt; new HomeState();
+}
+
+class HomeState extends State&lt;BossApp&gt; with SingleTickerProviderStateMixin {
+  int _currentIndex = 0;
+  TabController _controller;
+  VoidCallback onChanged;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+    new TabController(initialIndex: _currentIndex, length: 4, vsync: this);
+    onChanged = () {
+      setState(() {
+        _currentIndex = this._controller.index;
+      });
+    };
+
+    _controller.addListener(onChanged);
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(onChanged);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: new TabBarView(
+        children: &lt;Widget&gt;[
+          new JobsTab(), new CompanyTab(), new MessageTab(), new MineTab()],
+        controller: _controller,
+      ),
+      bottomNavigationBar: new Material(
+        color: Colors.white,
+        child: new TabBar(
+          controller: _controller,
+          indicatorSize: TabBarIndicatorSize.label,
+          labelStyle: new TextStyle(fontSize: _kTabTextSize),
+          tabs: &lt;IconTab&gt;[
+            new IconTab(
+              icon: _currentIndex == INDEX_JOB
+                ? &quot;assets/images/ic_main_tab_company_pre.png&quot;
+                : &quot;assets/images/ic_main_tab_company_nor.png&quot;,
+              text: &quot;职位&quot;,
+              color: _currentIndex == INDEX_JOB ? _kPrimaryColor : Colors.grey[900]
+            ),
+            new IconTab(
+              icon: _currentIndex == INDEX_COMPANY
+                ? &quot;assets/images/ic_main_tab_contacts_pre.png&quot;
+                : &quot;assets/images/ic_main_tab_contacts_nor.png&quot;,
+              text: &quot;公司&quot;,
+              color: _currentIndex == INDEX_COMPANY ? _kPrimaryColor : Colors.grey[900]
+            ),
+            new IconTab(
+              icon: _currentIndex == INDEX_MESSAGE
+                ? &quot;assets/images/ic_main_tab_find_pre.png&quot;
+                : &quot;assets/images/ic_main_tab_find_nor.png&quot;,
+              text: &quot;消息&quot;,
+              color: _currentIndex == INDEX_MESSAGE ? _kPrimaryColor : Colors.grey[900]
+            ),
+            new IconTab(
+              icon: _currentIndex == INDEX_MINE
+                ? &quot;assets/images/ic_main_tab_my_pre.png&quot;
+                : &quot;assets/images/ic_main_tab_my_nor.png&quot;,
+              text: &quot;我的&quot;,
+              color: (_currentIndex == INDEX_MINE) ? _kPrimaryColor : Colors.grey[900]
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+</code></pre><h2 id="model-job-dart-tab-bean">model/Job.dart 职位 Tab页面的Bean</h2>
+<pre><code>import &#39;dart:convert&#39;;
+
+import &#39;package:meta/meta.dart&#39;;
+
+class Job {
+  final String name;
+  final String cname;
+  final String size;
+  final String salary;
+  final String username;
+  final String title;
+
+  Job({
+    @required this.name,
+    @required this.cname,
+    @required this.size,
+    @required this.salary,
+    @required this.username,
+    @required this.title
+  });
+
+  static List&lt;Job&gt; fromJson(String json) {
+    return JSON
+        .decode(json)[&#39;list&#39;]
+        .map((obj) =&gt; Job.fromMap(obj))
+        .toList();
+  }
+
+  static Job fromMap(Map map) {
+    return new Job(
+        name: map[&#39;name&#39;],
+        cname: map[&#39;cname&#39;],
+        size: map[&#39;size&#39;],
+        salary: map[&#39;salary&#39;],
+        username: map[&#39;username&#39;],
+        title: map[&#39;title&#39;]
+    );
+  }
+}
+</code></pre><h2 id="model-company-dart-tab-bean">model/company.dart 公司 Tab页面的Bean</h2>
+<pre><code>import &#39;dart:convert&#39;;
+
+import &#39;package:meta/meta.dart&#39;;
+
+class Company {
+  final String logo; // logo
+  final String name; // 公司名称
+  final String location; // 公司位置
+  final String type; // 公司性质
+  final String size; // 公司规模
+  final String employee; // 公司人数
+  final String hot; // 热招职位
+  final String count; // 职位总数
+  final String inc;   // 公司详情
+
+  //构造函数
+  Company({
+    @required this.logo,
+    @required this.name,
+    @required this.location,
+    @required this.type,
+    @required this.size,
+    @required this.employee,
+    @required this.hot,
+    @required this.count,
+    @required this.inc
+  });
+
+  static List&lt;Company&gt; fromJson(String json) {
+    return JSON
+        .decode(json)[&#39;list&#39;]
+        .map((obj) =&gt; Company.fromMap(obj))
+        .toList();
+  }
+
+  static Company fromMap(Map map) {
+    return new Company(
+        logo: map[&#39;logo&#39;],
+        name: map[&#39;name&#39;],
+        location: map[&#39;location&#39;],
+        type: map[&#39;type&#39;],
+        size: map[&#39;size&#39;],
+        employee: map[&#39;employee&#39;],
+        hot: map[&#39;hot&#39;],
+        count: map[&#39;count&#39;],
+        inc: map[&#39;inc&#39;]
+    );
+  }
+}
+</code></pre><h2 id="model-message-dart-tab-bean">model/message.dart 消息 Tab页面的Bean</h2>
+<pre><code>import &#39;dart:convert&#39;;
+
+import &#39;package:meta/meta.dart&#39;;
+
+class Message {
+  final String name;
+  final String avatar;
+  final String company;
+  final String position;
+  final String msg;
+
+  Message({
+    @required this.name,
+    @required this.avatar,
+    @required this.company,
+    @required this.position,
+    @required this.msg,
+  });
+
+  static List&lt;Message&gt; fromJson(String json) {
+    return JSON
+        .decode(json)[&#39;list&#39;]
+        .map((obj) =&gt; Message.fromMap(obj))
+        .toList();
+  }
+
+  static Message fromMap(Map map) {
+    return new Message(
+        name: map[&#39;name&#39;],
+        avatar: map[&#39;avatar&#39;],
+        company: map[&#39;company&#39;],
+        position: map[&#39;position&#39;],
+        msg: map[&#39;msg&#39;]
+    );
+  }
+}
+</code></pre><h2 id="component-icon_tab-dart-tab-">component/icon_tab.dart tab图标组件</h2>
+<p><img src="img/2.jpg"> </p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+
+const double _kTextAndIconTabHeight = 53.0; // 导航高度
+const double _kMarginBottom = 3.0; // 图标与文字的间隔
+
+class IconTab extends StatefulWidget {
+
+  const IconTab({
+    Key key,
+    this.text,
+    this.icon,
+    this.color,
+  })
+    : assert(text != null || icon != null || color != null),
+      super(key: key);
+
+  final String text;
+  final String icon;
+  final Color color;
+
+  @override
+  State&lt;StatefulWidget&gt; createState() {
+    return new IconTabState();
+  }
+}
+
+class IconTabState extends State&lt;IconTab&gt; {
+
+  Widget _buildLabelText() {
+    return new Text(widget.text,
+      softWrap: false,
+      overflow: TextOverflow.fade,
+      style: new TextStyle(color: widget.color),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    assert(debugCheckHasMaterial(context));
+
+    double height = _kTextAndIconTabHeight;
+    Widget label = new Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: &lt;Widget&gt;[
+        new Container(
+          child: new Image(
+            image: new AssetImage(widget.icon),
+            height: 30.0,
+            width: 30.0,
+          ),
+          margin: const EdgeInsets.only(bottom: _kMarginBottom),
+        ),
+        _buildLabelText()
+      ]
+    );
+
+    return new SizedBox(
+      height: height,
+      child: new Center(
+        child: label,
+        widthFactor: 1.0,
+      ),
+    );
+  }
+
+}
+</code></pre><h2 id="component-indicator_viewpager-dart-">component/indicator_viewpager.dart  公司详情页面的轮播照片的实现</h2>
+<p><img src="img/3.jpg"> </p>
+<pre><code>import &#39;dart:math&#39;;
+import &#39;package:flutter/material.dart&#39;;
+
+class DotsIndicator extends AnimatedWidget {
+  DotsIndicator({
+    this.controller,
+    this.itemCount,
+    this.onPageSelected,
+    this.color: Colors.white,
+  }) : super(listenable: controller);
+
+  final PageController controller;
+  final int itemCount;
+  final ValueChanged&lt;int&gt; onPageSelected;
+  final Color color;
+  static const double _kDotSize = 5.0;
+  static const double _kMaxZoom = 2.0;
+  static const double _kDotSpacing = 15.0;
+
+  Widget _buildDot(int index) {
+    double selectedness = Curves.easeOut.transform(
+      max(
+        0.0,
+        1.0 - ((controller.page ?? controller.initialPage) - index).abs(),
+      ),
+    );
+    double zoom = 1.0 + (_kMaxZoom - 1.0) * selectedness;
+    return new Container(
+      width: _kDotSpacing,
+      child: new Material(
+        color: color,
+        type: MaterialType.circle,
+        child: new Container(
+          width: _kDotSize * zoom,
+          height: _kDotSize * zoom,
+          child: new InkWell(
+            onTap: () =&gt; onPageSelected(index),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget build(BuildContext context) {
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: new List&lt;Widget&gt;.generate(itemCount, _buildDot),
+    );
+  }
+}
+
+class IndicatorViewPager extends StatefulWidget {
+
+  final List&lt;Widget&gt; _pages;
+
+  IndicatorViewPager(this._pages);
+
+  @override
+  State createState() =&gt; new IndicatorViewPagerState();
+}
+
+class IndicatorViewPagerState extends State&lt;IndicatorViewPager&gt; {
+
+  final _controller = new PageController();
+  static const _kDuration = const Duration(milliseconds: 300);
+  static const _kCurve = Curves.ease;
+  final _kArrowColor = Colors.black.withOpacity(0.8);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: new IconTheme(
+        data: new IconThemeData(color: _kArrowColor),
+        child: new Stack(
+          children: &lt;Widget&gt;[
+            new PageView.builder(
+              physics: new AlwaysScrollableScrollPhysics(),
+              controller: _controller,
+              itemBuilder: (BuildContext context, int index) {
+                return widget._pages[index % widget._pages.length];
+              },
+            ),
+            new Positioned(
+              bottom: 0.0,
+              right: 0.0,
+              child: new Container(
+                // color: Colors.grey[800].withOpacity(0.5),
+                  padding: const EdgeInsets.all(15.0),
+                  child:
+                  new DotsIndicator(
+                    controller: _controller,
+                    itemCount: widget._pages.length,
+                    onPageSelected: (int page) {
+                      _controller.animateToPage(
+                        page,
+                        duration: _kDuration,
+                        curve: _kCurve,
+                      );
+                    },
+                  )
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+</code></pre><h2 id="view-jobs_view-dart-tab-">view/jobs_view.dart  职位Tab页面内容实现</h2>
+<p><img src="img/2.jpg"> </p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/item/joblist_item.dart&#39;;
+import &#39;package:flutter_app/app/model/job.dart&#39;;
+
+class JobsTab extends StatefulWidget {
+  @override
+  JobList createState() =&gt; new JobList();
+}
+
+class JobList extends State&lt;JobsTab&gt; {
+
+  List&lt;Job&gt; _jobs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getJobList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: new Color.fromARGB(255, 242, 242, 245),
+      appBar: new AppBar(
+        elevation: 0.0,
+        title: new Text(&#39;Android&#39;,
+            style: new TextStyle(fontSize: 20.0, color: Colors.white)),
+      ),
+      body: new ListView.builder(
+          itemCount: _jobs.length, itemBuilder: buildJobItem),
+    );
+  }
+
+  buildJobItem(BuildContext context, int index) {
+    Job job = _jobs[index];
+
+    var jobItem = new InkWell(
+        onTap: () {
+          showDialog(context: context, child: new AlertDialog(
+              content: new Text(
+                &quot;尽情期待!&quot;,
+                style: new TextStyle(fontSize: 20.0),
+              )));
+        },
+        child: new JobListItem(job)
+    );
+
+    return jobItem;
+  }
+
+  void getJobList() {
+    setState(() {
+      _jobs = Job.fromJson(&quot;&quot;&quot;
+          {
+            &quot;list&quot;: [
+              {
+                &quot;name&quot;: &quot;架构师（Android）&quot;,
+                &quot;cname&quot;: &quot;蚂蚁金服&quot;,
+                &quot;size&quot;: &quot;B轮&quot;,
+                &quot;salary&quot;: &quot;25k-45k&quot;,
+                &quot;username&quot;: &quot;Claire&quot;,
+                &quot;title&quot;: &quot;HR&quot;
+              },
+              {
+                &quot;name&quot;: &quot;资深Android架构师&quot;,
+                &quot;cname&quot;: &quot;今日头条&quot;,
+                &quot;size&quot;: &quot;D轮&quot;,
+                &quot;salary&quot;: &quot;40k-60k&quot;,
+                &quot;username&quot;: &quot;Kimi&quot;,
+                &quot;title&quot;: &quot;HRBP&quot;
+              }
+            ]
+          }
+      &quot;&quot;&quot;);
+    });
+  }
+
+}
+</code></pre><h2 id="item-joblist_item-dart">item/joblist_item.dart</h2>
+<p>职位主tab页面ListView的Item视图<br> <img src="img/4.jpg" height="60%"></p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/model/company.dart&#39;;
+
+class CompanyListItem extends StatelessWidget {
+  final Company company;
+
+  CompanyListItem(this.company);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+      padding: const EdgeInsets.only(
+        top: 3.0,
+        left: 5.0,
+        right: 5.0,
+        bottom: 3.0,
+      ),
+
+      child: new SizedBox(
+        child: new Card(
+          elevation: 0.0,
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: &lt;Widget&gt;[
+              new Padding(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                  left: 15.0,
+                  right: 15.0,
+                  bottom: 0.0,
+                ),
+                child: new Image.network(
+                  company.logo,
+                  width: 50.0,
+                  height: 50.0,),
+              ),
+
+              new Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: &lt;Widget&gt;[
+                    new Container(
+                      child: new Text(
+                        company.name,
+                        textAlign: TextAlign.left,
+                        style: new TextStyle(fontSize: 15.0),
+                      ),
+                      margin: const EdgeInsets.only(top: 10.0, bottom: 5.0),
+                    ),
+
+                    new Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5.0,
+                        left: 0.0,
+                        right: 5.0,
+                        bottom: 5.0,
+                      ),
+                      child: new Text(company.location, style: new TextStyle(
+                          fontSize: 13.0, color: Colors.grey)),
+                    ),
+
+                    new Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5.0,
+                        left: 0.0,
+                        right: 5.0,
+                        bottom: 5.0,
+                      ),
+                      child: new Text(
+                          company.type + &quot; | &quot; + company.size + &quot; | &quot; +
+                              company.employee, style: new TextStyle(
+                          fontSize: 13.0, color: Colors.grey)),
+                    ),
+
+                    new Divider(),
+                    new Row(
+                      children: &lt;Widget&gt;[
+                        new Padding(
+                          padding: const EdgeInsets.only(
+                            top: 5.0,
+                            left: 0.0,
+                            right: 5.0,
+                            bottom: 15.0,
+                          ),
+                          child: new Text(
+                              &quot;热招：&quot; + company.hot + &quot; 等&quot; + company.count +
+                                  &quot;个职位&quot;, style: new TextStyle(
+                              fontSize: 13.0, color: Colors.grey)),
+                        ),
+                        new Expanded(child: new Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: &lt;Widget&gt;[
+                            new Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 8.0,
+                              ),
+                              child: const Icon(
+                                Icons.keyboard_arrow_right,
+                                color: Colors.grey,),
+                            ),
+                          ],
+                        ))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+</code></pre><h2 id="view-message_view-dart-tab-">view/message_view.dart  消息Tab页面内容实现</h2>
+<p><img src="img/4.jpg"> </p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/item/messagelist_item.dart&#39;;
+import &#39;package:flutter_app/app/model/message.dart&#39;;
+
+class MessageTab extends StatefulWidget {
+  @override
+  MessageList createState() =&gt; new MessageList();
+}
+
+class MessageList extends State&lt;MessageTab&gt; {
+
+  List&lt;Message&gt; _messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getMessageList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: new Color.fromARGB(255, 242, 242, 245),
+      appBar: new AppBar(
+        elevation: 0.0,
+        centerTitle: true,
+        title: new Text(
+            &#39;消 息&#39;, style: new TextStyle(fontSize: 20.0, color: Colors.white)),
+      ),
+      body: new ListView.builder(
+          itemCount: _messages.length, itemBuilder: buildCompanyItem),
+    );
+  }
+
+  buildCompanyItem(BuildContext context, int index) {
+    Message message = _messages[index];
+
+    var messageItem = new GestureDetector(
+        onTap: () {
+          showDialog(context: context, child: new AlertDialog(
+              content: new Text(
+                &quot;尽情期待!&quot;,
+                style: new TextStyle(fontSize: 20.0),
+              )));
+        },
+        child: new MessageListItem(message)
+    );
+
+    return messageItem;
+  }
+
+  void getMessageList() {
+    setState(() {
+      _messages = Message.fromJson(&quot;&quot;&quot;
+          {
+            &quot;list&quot;: [
+              {
+                &quot;avatar&quot;: &quot;https://img.bosszhipin.com/beijin/mcs/useravatar/20180301/17aefca1b3d0dd6c5f94409e4c1e42a2cfcd208495d565ef66e7dff9f98764da_s.jpg&quot;,
+                &quot;name&quot;: &quot;小可爱&quot;,
+                &quot;company&quot;: &quot;百度&quot;,
+                &quot;position&quot;: &quot;HR&quot;,
+                &quot;msg&quot;: &quot;你好&quot;
+              }
+            ]
+          }
+      &quot;&quot;&quot;);
+    });
+  }
+}
+</code></pre><h2 id="item-messagelist_item-dart">item/messagelist_item.dart</h2>
+<p>消息主tab页面ListView的Item视图<br> <img src="img/4.jpg" height="60%"></p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/model/company.dart&#39;;
+
+class CompanyListItem extends StatelessWidget {
+  final Company company;
+
+  CompanyListItem(this.company);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+      padding: const EdgeInsets.only(
+        top: 3.0,
+        left: 5.0,
+        right: 5.0,
+        bottom: 3.0,
+      ),
+
+      child: new SizedBox(
+        child: new Card(
+          elevation: 0.0,
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: &lt;Widget&gt;[
+              new Padding(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                  left: 15.0,
+                  right: 15.0,
+                  bottom: 0.0,
+                ),
+                child: new Image.network(
+                  company.logo,
+                  width: 50.0,
+                  height: 50.0,),
+              ),
+
+              new Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: &lt;Widget&gt;[
+                    new Container(
+                      child: new Text(
+                        company.name,
+                        textAlign: TextAlign.left,
+                        style: new TextStyle(fontSize: 15.0),
+                      ),
+                      margin: const EdgeInsets.only(top: 10.0, bottom: 5.0),
+                    ),
+
+                    new Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5.0,
+                        left: 0.0,
+                        right: 5.0,
+                        bottom: 5.0,
+                      ),
+                      child: new Text(company.location, style: new TextStyle(
+                          fontSize: 13.0, color: Colors.grey)),
+                    ),
+
+                    new Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5.0,
+                        left: 0.0,
+                        right: 5.0,
+                        bottom: 5.0,
+                      ),
+                      child: new Text(
+                          company.type + &quot; | &quot; + company.size + &quot; | &quot; +
+                              company.employee, style: new TextStyle(
+                          fontSize: 13.0, color: Colors.grey)),
+                    ),
+
+                    new Divider(),
+                    new Row(
+                      children: &lt;Widget&gt;[
+                        new Padding(
+                          padding: const EdgeInsets.only(
+                            top: 5.0,
+                            left: 0.0,
+                            right: 5.0,
+                            bottom: 15.0,
+                          ),
+                          child: new Text(
+                              &quot;热招：&quot; + company.hot + &quot; 等&quot; + company.count +
+                                  &quot;个职位&quot;, style: new TextStyle(
+                              fontSize: 13.0, color: Colors.grey)),
+                        ),
+                        new Expanded(child: new Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: &lt;Widget&gt;[
+                            new Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 8.0,
+                              ),
+                              child: const Icon(
+                                Icons.keyboard_arrow_right,
+                                color: Colors.grey,),
+                            ),
+                          ],
+                        ))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+</code></pre><h2 id="view-mine_view-dart-tab-">view/mine_view.dart  个人信息Tab页面内容实现</h2>
+<p><img src="img/4.jpg"> </p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+
+class MineTab extends StatelessWidget {
+
+  final double _appBarHeight = 150.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: new Color.fromARGB(255, 242, 242, 245),
+      body: new CustomScrollView(
+        slivers: &lt;Widget&gt;[
+          new SliverAppBar(
+            expandedHeight: _appBarHeight,
+            flexibleSpace: new FlexibleSpaceBar(
+              background: new Stack(
+                fit: StackFit.expand,
+                children: &lt;Widget&gt;[
+                  const DecoratedBox(
+                    decoration: const BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: const Alignment(0.0, -1.0),
+                        end: const Alignment(0.0, -0.4),
+                        colors: const &lt;Color&gt;[
+                          const Color(0x00000000), const Color(0x00000000)],
+                      ),
+                    ),
+                  ),
+
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      new Padding(
+                        padding: const EdgeInsets.only(
+                          top: 20.0,
+                          left: 30.0,
+                          right: 20.0,
+                        ),
+                        child: new CircleAvatar(
+                          radius: 35.0,
+                          backgroundImage: new NetworkImage(&#39;https://img.bosszhipin.com/beijin/mcs/useravatar/20171211/4d147d8bb3e2a3478e20b50ad614f4d02062e3aec7ce2519b427d24a3f300d68_s.jpg&#39;)
+                        )
+                      ),
+
+                      new Row(
+                        children: &lt;Widget&gt;[
+                          new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              new Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10.0,
+                                    bottom: 10.0,
+                                  ),
+                                  child: new Text(&#39;kimi he&#39;,
+                                      style: new TextStyle(
+                                          color: Colors.white, fontSize: 18.0))
+                              ),
+                              new Text(&#39;在职-考虑机会&#39;,
+                                  style: new TextStyle(
+                                      color: Colors.white, fontSize: 12.0)
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          new SliverList(
+              delegate: new SliverChildListDelegate(&lt;Widget&gt;[
+                new Container(
+                  color: Colors.white,
+                  child: new Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                      bottom: 10.0,
+                    ),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        new _ContactItem(
+                          onPressed: () {
+                            showDialog(context: context, child: new AlertDialog(
+                                content: new Text(
+                                  &quot;沟通过&quot;,
+                                  style: new TextStyle(fontSize: 20.0),
+                                )));
+                          },
+                          count: &#39;590&#39;,
+                          title: &#39;沟通过&#39;,
+                        ),
+                        new _ContactItem(
+                          onPressed: () {
+                            showDialog(context: context, child: new AlertDialog(
+                                content: new Text(
+                                  &quot;已沟通&quot;,
+                                  style: new TextStyle(fontSize: 20.0),
+                                )));
+                          },
+                          count: &#39;71&#39;,
+                          title: &#39;已沟通&#39;,
+                        ),
+                        new _ContactItem(
+                          onPressed: () {
+                            showDialog(context: context, child: new AlertDialog(
+                                content: new Text(
+                                  &quot;已沟通&quot;,
+                                  style: new TextStyle(fontSize: 20.0),
+                                )));
+                          },
+                          count: &#39;0&#39;,
+                          title: &#39;待面试&#39;,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ])
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _ContactItem extends StatelessWidget {
+  _ContactItem({ Key key, this.count, this.title, this.onPressed })
+      : super(key: key);
+
+  final String count;
+  final String title;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+        onTap: onPressed,
+        child: new Column(
+          children: [
+            new Padding(
+              padding: const EdgeInsets.only(
+                bottom: 10.0,
+              ),
+              child: new Text(count, style: new TextStyle(
+                  fontSize: 22.0)),
+            ),
+            new Text(title),
+          ],
+        )
+    );
+  }
+}
+</code></pre><h2 id="view-company-company_view-dart-tab-">view/company/company_view.dart  公司信息主页Tab页面内容实现</h2>
+<p> <img src="img/6.jpg" height="70%">   </p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/item/companylist_item.dart&#39;;
+import &#39;package:flutter_app/app/model/company.dart&#39;;
+import &#39;package:flutter_app/app/view/company/company_detail.dart&#39;;
+
+class CompanyTab extends StatefulWidget {
+  @override
+  CompanyList createState() =&gt; new CompanyList();
+}
+
+class CompanyList extends State&lt;CompanyTab&gt; {
+
+  List&lt;Company&gt; _companties = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getCompanyList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: new Color.fromARGB(255, 242, 242, 245),
+      appBar: new AppBar(
+        elevation: 0.0,
+        centerTitle: true,
+        title: new Text(
+            &#39;公 司&#39;, style: new TextStyle(fontSize: 20.0, color: Colors.white)),
+//        actions: &lt;Widget&gt;[
+//          new IconButton(
+//            icon: new Icon(Icons.find_in_page, color: Colors.white,),
+//            onPressed: () {
+//              print(&#39;onclick&#39;);
+//            },
+//          )
+//        ],
+      ),
+      body: new ListView.builder(
+          itemCount: _companties.length, itemBuilder: buildCompanyItem),
+    );
+  }
+
+  buildCompanyItem(BuildContext context, int index) {
+    Company company = _companties[index];
+
+    var companyItem = new InkWell(
+        onTap: () =&gt; navCompanyDetail(company, index),
+        child: new CompanyListItem(company)
+    );
+
+    return companyItem;
+  }
+
+  void getCompanyList() {
+    setState(() {
+      _companties = Company.fromJson(&quot;&quot;&quot;
+          {
+            &quot;list&quot;: [
+               {
+                &quot;logo&quot;: &quot;https://img.bosszhipin.com/beijin/mcs/chatphoto/20161230/b0df9f099f1d6db1937bc78068fb4c15760bb3f59f760cd45f5945e615392f6f.jpg&quot;,
+                &quot;name&quot;: &quot;杭州蚂蚁金服信息技术有限公司&quot;,
+                &quot;location&quot;: &quot;上海市浦东新区&quot;,
+                &quot;type&quot;: &quot;互联网&quot;,
+                &quot;size&quot;: &quot;B轮&quot;,
+                &quot;employee&quot;: &quot;10000人以上&quot;,
+                &quot;hot&quot;: &quot;资深开放产品技术工程师&quot;,
+                &quot;count&quot;: &quot;500&quot;,
+                &quot;inc&quot;: &quot;蚂蚁金融服务集团（以下称“蚂蚁金服”）起步于2004年成立的支付宝。2014年10月，蚂蚁金服正式成立。蚂蚁金服以“为世界带来微小而美好的改变”为愿景，致力于打造开放的生态系统，通过“互联网推进器计划”助力金融机构和合作伙伴加速迈向“互联网+”，为小微企业和个人消费者提供普惠金融服务。蚂蚁金服集团旗下及相关业务包括生活服务平台支付宝、智慧理财平台蚂蚁聚宝、云计算服务平台蚂蚁金融云、独立第三方信用评价体系芝麻信用以及网商银行等。另外，蚂蚁金服也与投资控股的公司及关联公司一起，在业务和服务层面通力合作，深度整合共推商业生态系统的繁荣。&quot;
+              },
+              {
+                &quot;logo&quot;: &quot;https://img.bosszhipin.com/beijin/mcs/chatphoto/20170927/60158fe74a9233b55ee08206ca5df1dccfcd208495d565ef66e7dff9f98764da.jpg&quot;,
+                &quot;name&quot;: &quot;百度&quot;,
+                &quot;location&quot;: &quot;上海市浦东新区&quot;,
+                &quot;type&quot;: &quot;互联网&quot;,
+                &quot;size&quot;: &quot;已上市&quot;,
+                &quot;employee&quot;: &quot;10000人以上&quot;,
+                &quot;hot&quot;: &quot;Android架构师&quot;,
+                &quot;count&quot;: &quot;300&quot;,
+                &quot;inc&quot;: &quot;百度（纳斯达克：BIDU），全球最大的中文搜索引擎、最大的中文网站。1999年底,身在美国硅谷的李彦宏看到了中国互联网及中文搜索引擎服务的巨大发展潜力，抱着技术改变世界的梦想，他毅然辞掉硅谷的高薪工作，携搜索引擎专利技术，于 2000年1月1日在中关村创建了百度公司。“百度”二字,来自于八百年前南宋词人辛弃疾的一句词：众里寻他千百度。这句话描述了词人对理想的执着追求。&quot;
+              },
+              {
+                &quot;logo&quot;: &quot;https://img.bosszhipin.com/beijin/mcs/chatphoto/20170420/9e7ec542865511eb31273086b78598e355d0075cc85bc70bb61f658db0db4c2c.jpg&quot;,
+                &quot;name&quot;: &quot;今日头条&quot;,
+                &quot;location&quot;: &quot;北京朝阳区&quot;,
+                &quot;type&quot;: &quot;互联网&quot;,
+                &quot;size&quot;: &quot;D轮&quot;,
+                &quot;employee&quot;: &quot;100-400人&quot;,
+                &quot;hot&quot;: &quot;Android架构师&quot;,
+                &quot;count&quot;: &quot;500&quot;,
+                &quot;inc&quot;: &quot;【字节跳动】字节跳动成立于2012年3月，是一家技术驱动的移动互联网公司，公司致力于采用先进的推荐引擎技术，提供基于移动设备的信息分发解决方案。 &quot;
+              },
+              {
+                &quot;logo&quot;: &quot;https://img2.bosszhipin.com/mcs/chatphoto/20160317/5d308646e6e4bc4e68d5f97a74c14dcda2d41b7cc34321f537d83206460d4ca6.jpg&quot;,
+                &quot;name&quot;: &quot;欧那教育&quot;,
+                &quot;location&quot;: &quot;普陀区长寿路137号财富时代大厦6楼&quot;,
+                &quot;type&quot;: &quot;互联网教育&quot;,
+                &quot;size&quot;: &quot;A轮&quot;,
+                &quot;employee&quot;: &quot;100-400人&quot;,
+                &quot;hot&quot;: &quot;app技术经理&quot;,
+                &quot;count&quot;: &quot;50&quot;,
+                &quot;inc&quot;: &quot;随着中外交流的不断深入，需要越来越多掌握小语种的高端人才，也有越来越多的中国人选择到德国、法国、俄罗斯、西班牙等国家留学。但小语种教育资源在地域上分配很不平衡，许多小语种学习者在周边找不到优秀的小语种老师，许多小型小语种培训学校受限于资源也无力研发真正高质量的课程。上海云兜网络科技有限公司旗下欧那教育，是国内最早开始在线小语种培训机构，首创“真人在线实时教学”的互联网学习模式，通过最有效的沉浸式学习，打破传统的外语培训“知识堆积”的学习模式。全球数十位语言专家和教育专家组成的欧那教研团队研发的适合中国人学习的“极致·地道·匠心独具”的小语种语课程，帮助中国人用最快捷有效的方式，达成外语水平的提升。优质的中外籍师资、经济实惠的价格和全球专家研发的专业小语种课程赢得了数千位小语种学习者的认可和好评。我们相信互联网平等开放的力量，相信用优质的课程、实惠的价格、真诚的服务，让数百万对小语种学习和生活怀抱着热爱和执着，渴望通过努力改变生活改变未来的普通人，从见证小小改变的发生，到实现大大的梦想：）&quot;
+              },
+              {
+                &quot;logo&quot;: &quot;https://img.bosszhipin.com/beijin/mcs/chatphoto/20180120/feecd69f373a2a8b1189df93a0f6fd84cfcd208495d565ef66e7dff9f98764da.jpg&quot;,
+                &quot;name&quot;: &quot;领健信息&quot;,
+                &quot;location&quot;: &quot;上海市浦东新区&quot;,
+                &quot;type&quot;: &quot;互联网&quot;,
+                &quot;size&quot;: &quot;B轮&quot;,
+                &quot;employee&quot;: &quot;500人以上&quot;,
+                &quot;hot&quot;: &quot;前端工程师&quot;,
+                &quot;count&quot;: &quot;100&quot;,
+                &quot;inc&quot;: &quot;上海领健信息技术有限公司创立于2015年5月，2015年8月获得顶级投资机构经纬中国天使投资，2016年1月完成A轮融资，丁香园领投，天使投资人经纬中国继续跟进。&quot;
+              },
+              {
+                &quot;logo&quot;: &quot;https://img2.bosszhipin.com/mcs/chatphoto/20160220/6042752606dc6957d81c5f08f409db8e5e01c286644ac62b728b8918eb85ca28.jpg&quot;,
+                &quot;name&quot;: &quot;平安银行&quot;,
+                &quot;location&quot;: &quot;上海徐汇区平安大厦凯滨路206号&quot;,
+                &quot;type&quot;: &quot;互联网&quot;,
+                &quot;size&quot;: &quot;已上市&quot;,
+                &quot;employee&quot;: &quot;10000人以上&quot;,
+                &quot;hot&quot;: &quot;前端架构师&quot;,
+                &quot;count&quot;: &quot;400&quot;,
+                &quot;inc&quot;: &quot;平安银行，全称平安银行股份有限公司，是中国平安保险（集团）股份有限公司控股的一家跨区域经营的股份制商业银行，为中国大陆12家全国性股份制商业银行之一，总部位于广东省深圳市。中国平安保险（集团）股份有限公司（以下简称“中国平安”）及其控股子公司为平安银行的控股股东。&quot;
+              },
+              {
+                &quot;logo&quot;: &quot;https://www.lgstatic.com/thumbnail_160x160/i/image2/M00/2C/FA/CgoB5lowjbmAHxUGAAA2tROA4LA987.jpg&quot;,
+                &quot;name&quot;: &quot;蘑菇租房&quot;,
+                &quot;location&quot;: &quot;上海市静安区&quot;,
+                &quot;type&quot;: &quot;互联网&quot;,
+                &quot;size&quot;: &quot;C轮&quot;,
+                &quot;employee&quot;: &quot;1000人以上&quot;,
+                &quot;hot&quot;: &quot;IOS工程师&quot;,
+                &quot;count&quot;: &quot;200&quot;,
+                &quot;inc&quot;: &quot;蘑菇租房是国内领先的真实租房平台，2014年蘑菇租房从品牌长租公寓起步，蘑菇租房的前身蘑菇公寓致力于为都市白领创造高品质居住生活。&quot;
+              }
+            ]
+          }
+      &quot;&quot;&quot;);
+    });
+  }
+
+  navCompanyDetail(Company company, int index) {
+    Navigator.of(context).push(new PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) {
+          return new CompanyDetail(company);
+        },
+        transitionsBuilder: (_, Animation&lt;double&gt; animation, __, Widget child) {
+          return new FadeTransition(
+            opacity: animation,
+            child: new SlideTransition(position: new Tween&lt;Offset&gt;(
+              begin: const Offset(0.0, 1.0),
+              end: Offset.zero,
+            ).animate(animation), child: child),
+          );
+        }
+    ));
+  }
+}
+</code></pre><h2 id="view-company-company_detail-dart">view/company/company_detail.dart</h2>
+<p>公司详细信息页面ListView的Item视图<br> <img src="img/6.jpg" height="70%"></p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/model/company.dart&#39;;
+
+class CompanyListItem extends StatelessWidget {
+  final Company company;
+
+  CompanyListItem(this.company);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+      padding: const EdgeInsets.only(
+        top: 3.0,
+        left: 5.0,
+        right: 5.0,
+        bottom: 3.0,
+      ),
+
+      child: new SizedBox(
+        child: new Card(
+          elevation: 0.0,
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: &lt;Widget&gt;[
+              new Padding(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                  left: 15.0,
+                  right: 15.0,
+                  bottom: 0.0,
+                ),
+                child: new Image.network(
+                  company.logo,
+                  width: 50.0,
+                  height: 50.0,),
+              ),
+
+              new Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: &lt;Widget&gt;[
+                    new Container(
+                      child: new Text(
+                        company.name,
+                        textAlign: TextAlign.left,
+                        style: new TextStyle(fontSize: 15.0),
+                      ),
+                      margin: const EdgeInsets.only(top: 10.0, bottom: 5.0),
+                    ),
+
+                    new Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5.0,
+                        left: 0.0,
+                        right: 5.0,
+                        bottom: 5.0,
+                      ),
+                      child: new Text(company.location, style: new TextStyle(
+                          fontSize: 13.0, color: Colors.grey)),
+                    ),
+
+                    new Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5.0,
+                        left: 0.0,
+                        right: 5.0,
+                        bottom: 5.0,
+                      ),
+                      child: new Text(
+                          company.type + &quot; | &quot; + company.size + &quot; | &quot; +
+                              company.employee, style: new TextStyle(
+                          fontSize: 13.0, color: Colors.grey)),
+                    ),
+
+                    new Divider(),
+                    new Row(
+                      children: &lt;Widget&gt;[
+                        new Padding(
+                          padding: const EdgeInsets.only(
+                            top: 5.0,
+                            left: 0.0,
+                            right: 5.0,
+                            bottom: 15.0,
+                          ),
+                          child: new Text(
+                              &quot;热招：&quot; + company.hot + &quot; 等&quot; + company.count +
+                                  &quot;个职位&quot;, style: new TextStyle(
+                              fontSize: 13.0, color: Colors.grey)),
+                        ),
+                        new Expanded(child: new Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: &lt;Widget&gt;[
+                            new Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 8.0,
+                              ),
+                              child: const Icon(
+                                Icons.keyboard_arrow_right,
+                                color: Colors.grey,),
+                            ),
+                          ],
+                        ))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+</code></pre><h2 id="view-company-company_detail-dart-">view/company/company_detail.dart  公司详细信息页面</h2>
+<p> <img src="img/7.jpg" height="70%"></p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/component/indicator_viewpager.dart&#39;;
+import &#39;package:flutter_app/app/model/company.dart&#39;;
+import &#39;package:flutter_app/app/view/company/company_hot_job.dart&#39;;
+import &#39;package:flutter_app/app/view/company/company_inc.dart&#39;;
+import &#39;package:flutter_app/app/view/company/company_info.dart&#39;;
+
+enum AppBarBehavior { normal, pinned, floating, snapping }
+
+const double _kAppBarHeight = 256.0;
+
+class CompanyDetail extends StatefulWidget {
+
+  final Company _company;
+
+  CompanyDetail(this._company);
+
+  @override
+  CompanyDetailState createState() =&gt; new CompanyDetailState();
+}
+
+class CompanyDetailState extends State&lt;CompanyDetail&gt;
+    with TickerProviderStateMixin {
+
+  List&lt;Tab&gt; _tabs;
+  List&lt;Widget&gt; _imagePages;
+  TabController _controller;
+  List&lt;String&gt; _urls = [
+    &#39;https://img.bosszhipin.com/beijin/mcs/chatphoto/20170725/861159df793857d6cb984b52db4d4c9c.jpg&#39;,
+    &#39;https://img2.bosszhipin.com/mcs/chatphoto/20151215/a79ac724c2da2a66575dab35384d2d75532b24d64bc38c29402b4a6629fcefd6_s.jpg&#39;,
+    &#39;https://img.bosszhipin.com/beijin/mcs/chatphoto/20180207/c15c2fc01c7407b98faf4002e682676b.jpg&#39;
+  ];
+  Widget _companyTabContent;
+  VoidCallback onChanged;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!_urls.isEmpty) {
+      _imagePages = &lt;Widget&gt;[];
+      _urls.forEach((String url) {
+        _imagePages.add(
+            new Container(
+                color: Colors.black.withAlpha(900),
+                child: new ConstrainedBox(
+                  constraints: const BoxConstraints.expand(),
+                  child: new Image.network(
+                    url,
+                    fit: BoxFit.cover,
+                    height: _kAppBarHeight,
+                  ),
+                ))
+        );
+      });
+    }
+    _tabs = [
+      new Tab(text: &#39;公司概况&#39;),
+      new Tab(text: &#39;热招职位&#39;),
+    ];
+    _companyTabContent = new CompanyInc(widget._company.inc);
+    _controller = new TabController(length: _tabs.length, vsync: this);
+    onChanged = () {
+      setState(() {
+        if (_currentIndex == 0) {
+          _companyTabContent = new CompanyInc(widget._company.inc);
+        } else {
+          _companyTabContent = new CompanyHotJob();
+        }
+        _currentIndex = this._controller.index;
+      });
+    };
+
+    _controller.addListener(onChanged);
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(onChanged);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+        backgroundColor: new Color.fromARGB(255, 242, 242, 245),
+        body: new Stack(
+          children: &lt;Widget&gt;[
+            new SingleChildScrollView(
+                child: new Column(
+                  children: &lt;Widget&gt;[
+                    new SizedBox.fromSize(
+                      size: const Size.fromHeight(_kAppBarHeight),
+                      child: new IndicatorViewPager(_imagePages),
+                    ),
+
+                    new Container(
+                      color: Colors.white,
+                      child: new Column(
+                        children: &lt;Widget&gt;[
+                          new CompanyInfo(widget._company),
+                          new Divider(),
+                          new TabBar(
+                            indicatorWeight: 3.0,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            labelStyle: new TextStyle(fontSize: 16.0),
+                            labelColor: Colors.black,
+                            controller: _controller,
+                            tabs: _tabs,
+                            indicatorColor: Theme
+                                .of(context)
+                                .primaryColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                    _companyTabContent
+                  ],
+                )
+            ),
+
+            new Positioned(
+              top: 10.0,
+              left: -10.0,
+              child: new Container(
+                  padding: const EdgeInsets.all(15.0),
+                  child: new BackButton(color: Colors.white)
+              ),
+            ),
+          ],
+        )
+    );
+  }
+}
+</code></pre><h2 id="view-company-company_info-dart">view/company/company_info.dart</h2>
+<p>公司详细信息页面中的公司的信息展示的View<br> <img src="img/8.jpg" height="70%"></p>
+<pre><code>import &#39;package:flutter/cupertino.dart&#39;;
+import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_app/app/model/company.dart&#39;;
+
+class CompanyInfo extends StatelessWidget {
+
+  final Company company;
+
+  CompanyInfo(this.company);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: new SizedBox(
+        child: new Card(
+          elevation: 0.0,
+          child: new Row(
+            children: &lt;Widget&gt;[
+              new Padding(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                  left: 15.0,
+                  right: 15.0,
+                  bottom: 0.0,
+                ),
+                child: new Image.network(
+                  company.logo,
+                  width: 50.0,
+                  height: 50.0,),
+              ),
+
+              new Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: &lt;Widget&gt;[
+                    new Container(
+                      child: new Text(
+                        company.name,
+                        textAlign: TextAlign.left,
+                        style: new TextStyle(fontSize: 15.0),
+                      ),
+                      margin: const EdgeInsets.only(top: 10.0, bottom: 5.0),
+                    ),
+
+                    new Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5.0,
+                        left: 0.0,
+                        right: 5.0,
+                        bottom: 5.0,
+                      ),
+                      child: new Text(company.location, style: new TextStyle(
+                          fontSize: 13.0, color: Colors.grey)),
+                    ),
+
+                    new Padding(
+                      padding: const EdgeInsets.only(
+                        top: 5.0,
+                        left: 0.0,
+                        right: 5.0,
+                        bottom: 5.0,
+                      ),
+                      child: new Text(
+                          company.type + &quot; | &quot; + company.size + &quot; | &quot; +
+                              company.employee, style: new TextStyle(
+                          fontSize: 13.0, color: Colors.grey)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+</code></pre><h2 id="view-company-company_inc-dart">view/company/company_inc.dart</h2>
+<p>公司详细信息页面中的公司概况tab的内容View<br> <img src="img/8.jpg" height="70%"></p>
+<pre><code>import &#39;package:flutter/cupertino.dart&#39;;
+import &#39;package:flutter/material.dart&#39;;
+
+class CompanyInc extends StatelessWidget {
+
+  final String _companyInc;
+
+  CompanyInc(this._companyInc);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+      padding: const EdgeInsets.only(
+        top: 10.0,
+        left: 10.0,
+        right: 10.0,
+        bottom: 10.0,
+      ),
+      child: new Container(
+          color: Colors.white,
+          child: new Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: new Column(
+                children: &lt;Widget&gt;[
+                  new Row(
+                    children: &lt;Widget&gt;[
+                      new Container(
+                        margin: const EdgeInsets.only(bottom: 10.0),
+                        child: new Text(
+                            &#39;公司介绍&#39;, style: new TextStyle(fontSize: 15.0)),
+                      )
+                    ],
+                  ),
+
+                  new RichText(
+                    text: new TextSpan(
+                      text: _companyInc,
+                      style: new TextStyle(
+                          fontSize: 13.0,
+                          color: Colors.black
+                      ),
+                    ),
+                  )
+                ],
+              )
+          )
+      ),
+    );
+  }
+}
+</code></pre><h2 id="view-company-company_hot_job-dart">view/company/company_hot_job.dart</h2>
+<p>公司详细信息页面中的热招职位tab的内容View<br> <img src="img/9.jpg" height="70%"></p>
+<pre><code>
+import &#39;package:flutter/cupertino.dart&#39;;
+import &#39;package:flutter/material.dart&#39;;
+
+class CompanyHotJob extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+        padding: const EdgeInsets.only(
+          top: 10.0,
+          left: 10.0,
+          right: 10.0,
+          bottom: 10.0,
+        ),
+        child: new Row(
+          children: &lt;Widget&gt;[
+            new RichText(
+              text: new TextSpan(
+                text: &#39;敬请期待&#39;,
+                style: new TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black
+                ),
+              ),
+            )
+          ],
+        )
+    );
+  }
+}
+</code></pre><h1 id="-">扣扣码</h1>
+<h3 id="-void-main-">函数起点位置原型 void main()</h3>
+<pre><code>void main() { runApp(new MaterialApp(title:【x1.应用名称】 ,theme：【x2.应用使用的主题 ThemeData 】 ,home : 【x3.应用的主界面使用到的视图 Widget】)   }
+
+void main() {
+  runApp(new MaterialApp(
+    title: &quot;Boss直聘&quot;,
+    theme: new ThemeData(
+      primaryIconTheme: const IconThemeData(color: Colors.white),
+      brightness: Brightness.light,
+      primaryColor: new Color.fromARGB(255, 0, 215, 198),
+      accentColor: Colors.cyan[300],
+    ),
+    home: new SplashPage()));
+}
+</code></pre><h3 id="theme-themedata-themedata-">theme参数名使用的主题为  ThemeData , 该 ThemeData的参数分析</h3>
+<pre><code>   new ThemeData(
+   primaryIconTheme:【x2_1  IconThemeData(color: Colors.white)  Defines the color, opacity, and size of icons】   , 
+   brightness : 【x2_2 主题风格: { Brightness.dark |  Brightness.light } 】 ,  
+   primaryColor: 【x2_3 主题整体颜色 导航栏默认使用改颜色 Toolbar导航栏的底色  { Colors.blue ... Color.fromARGB(255, 0, 215, 198)} 】 ，
+   accentColor: 【x2_4  CheckBox，RadioButton，Switch, Button 等控件采用的首选颜色 { Colors.blue ... Color.fromARGB(255, 0, 215, 198)}】 )
+</code></pre><h3 id="home-widget">home: 代表的是 当前页面的内容  必须是一个 Widget</h3>
+<pre><code>new MaterialApp(title: &#39;string&#39;, theme: ThemeData , home: Widget);
+</code></pre><h3 id="-widget-dart-">视图一个实现了Widget的   dart文件</h3>
+<pre><code>【widget 必须 继承 extends StatefulWidget (可变)  并实现  override 方法createState() 并 在该方法内返回 具体的State状态类 】
+   SplashPage的具体的内容  必须由一个  继承 extends State&lt;SplashPage&gt;  的 状态类State去实现， 这个 State 中 必须手动实现一个 Widget build(BuildContext context) {}  方法
+
+class SplashPage extends StatefulWidget {
+  @override
+  SplashState createState() =&gt; new SplashState();
+}
+
+class SplashState extends State&lt;SplashPage&gt; {
+
+  @override
+  void initState() { 【如果有数据需要初始化  可以在该方法中处理  只在创建时执行一次 在 build函数之前执行】
+  }
+
+    @override
+  void dispose() {【如果有数据需要在对象销毁前清楚  可以在该方法中处理  只在销毁前执行一次 】
+  }
+
+
+  @override
+  Widget build(BuildContext context) { // 【在该方法中 去具体实现 SplashPage 中显示的内容 】
+  }
+
+}
+</code></pre><h3 id="widget-build-buildcontext-context-material-">Widget build(BuildContext context){ Material } 函数分析</h3>
+<pre><code>Widget build(BuildContext context) { return new Material(color: 【定义该Material 视图对象的颜色 (在此定义了背景颜色)】, child: 该视图包含的内容( 一般就在这里完成视图的逻辑) )} 函数分析  一般
+
+ @override
+  Widget build(BuildContext context) {
+    return new Material(
+      color: xxxx,  
+      child: xxxx,
+    );
+  }
+</code></pre><h3 id="padding-widget-">Padding(widget) 对象说明</h3>
+<p><img src="img/11.jpg"></p>
+<pre><code> Padding 对象说明： 该对象用于设置内容与边界的距离  调整内容显示的位置 ， 一般它所包含的 child( Widget )起作用
+https://docs.flutter.io/flutter/widgets/Padding-class.html  A widget that insets its child by the given padding.
+const EdgeInsets.only(left: 40.0)  离左边40像素
+const EdgeInsets.only(right: 40.0)  
+const EdgeInsets.only(top: 150.0)  离顶部150像素
+const EdgeInsets.only(bottom: 150.0)  
+const EdgeInsets.all(150.0)  上下左右 都间隔 100 像素
+const EdgeInsets.fromLTRB(left:10,right: 40.0,top: 40.0,bottom: 150.0)  上下左右 都分别设置间隔
+const EdgeInsets.symmetric( vertical: 10.0, double horizontal: 20.0 )  水平与竖直方向的位移
+
+
+new Padding(padding:【边界距离的表示类 EdgeInsets ， const EdgeInsets.all(8.0) 上下左右都间隔8像素  ....】， child: 【Padding包含的内容 Widget】)
+
+new Padding(
+        padding: const EdgeInsets.only(top: 150.0,),
+        child: new Column(children: &lt;Widget&gt;[new Text(&quot;BOSS直聘&quot;,style: new TextStyle(color: Colors.white,fontSize: 50.0,fontWeight: FontWeight.bold),),],
+        ),
+      ),
+</code></pre><h3 id="column-widget-">Column(widget) 对象说明</h3>
+<p><img src="img/12.jpg"></p>
+<pre><code>原型: new Column(children: &lt;Widget&gt;[ ]);
+该类是一个widget的集合，用于包含那些垂直排列的 视图。它的参数 children是一个 &lt;Widget&gt;[ ] 视图的集合，这个集合的每一个元素垂直排布。 与他相对的排布容器是 Row实现水平排布，两个可相互嵌套实现复杂布局
+ new Column(children: &lt;Widget&gt;[new Text(&quot;BOSS直聘&quot;,style: new TextStyle(color: Colors.white,fontSize: 50.0,fontWeight: FontWeight.bold),),],
+ new Column(children: &lt;Widget&gt;[new Text(&quot;Hello&quot;),new Text(&quot;World&quot;)]);
+</code></pre><h3 id="row-widget-">Row(widget) 对象说明</h3>
+<p><img src="img/12.jpg"></p>
+<pre><code>原型: new Row(children: &lt;Widget&gt;[ ]);
+该类是一个widget的集合，用于包含那些水平排列的 视图。它的参数 children是一个 &lt;Widget&gt;[ ] 视图的集合，这个集合的每一个元素水平排布。
+与他相对的排布容器是 Column 实现垂直排布，两个可相互嵌套实现复杂布局
+ new Row(children: &lt;Widget&gt;[new Text(&quot;Hello&quot;),new Text(&quot;World&quot;)]);
+</code></pre><h3 id="text-widget-">Text(widget) 对象说明</h3>
+<pre><code>原型：  new Text(text: 显示的文本字符串 , style: 文本的样式_字体大小_字体颜色_字体加粗斜体等属性)
+new Text(text:&quot;BOSS直聘&quot;,
+      style: new TextStyle(color: Colors.white, // 字体颜色
+                           fontSize: 50.0,  // 字体大小
+                           fontWeight: FontWeight.bold  ),), // 字体粗体
+  ],
+</code></pre><h3 id="timer-">Timer 定时器对象说明</h3>
+<pre><code>https://docs.flutter.io/flutter/dart-async/Timer-class.html
+Timer 是一个定时执行 指定函数的对象  包含在&#39;dart:async&#39; 这个库中, 只要创建了  那么他就会在规定的时间内执行， 不需要直接调用 创建时 就可以用了
+A count-down timer that can be configured to fire once or repeatedly.    Timer.tick 指定了执行的数量次数
+
+原型:  Timer(Duration duration 【时间间隔】, void callback() 【执行函数】)
+
+import &#39;dart:async&#39;;
+class SplashState extends State&lt;SplashPage&gt; {
+  Timer _t;
+
+  @override
+  void initState() {
+  _t = new Timer(duration： const Duration(milliseconds: 1500),(){ // 匿名执行函数
+
+   // 在此处执行匿名函数操作
+  });
+  }
+
+
+    @override
+  void dispose() {
+    _t.cancel();   // 取消定时器任务
+    super.dispose();
+  }
+</code></pre><h3 id="navigator-">Navigator 页面导航，进入新页面</h3>
+<p><img src="img/13.jpg"></p>
+<pre><code>进入新页面路由:
+Navigator.push(context, new MaterialPageRoute());
+
+MaterialPageRoute 的参数 binder: 参数是一个当前路由页面显示的 widget ， 一般在该参数构造一个匿名返回widget的函数( 同 Widget Build(Context context)类似的函数)
+
+void main() {
+  runApp(new MaterialApp(home: new MyAppHome()));
+}
+
+
+Navigator.push(context, new MaterialPageRoute(
+  builder: (BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(title: new Text(&#39;My Page&#39;)),
+      body: new Center(
+        child: new FlatButton(
+          child: new Text(&#39;POP&#39;),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  },
+));
+--------------------------------
+
+进入新页面，同时把当前页面及之前给销毁掉的方法
+Navigator.of(context).pushAndRemoveUntil( new MaterialPageRoute( builder: widget )， predicate:【预制条件 把之前的路由都设置出栈 直到该函数返回true】  );
+
+try {
+    Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(
+        builder: (BuildContext context) =&gt; new BossApp()), 
+        predicate: (Route route) =&gt; route == null 【当当前的路由为空 停止出栈 进入新的路由】);
+  } catch (e) {
+
+  }
+</code></pre><h1 id="-widget-set">视图集合 Widget Set</h1>
+<p>MaterialApp-----------------------------MaterialApp(title: &#39;&#39;, theme: ThemeData , home: Widget)<br>Padding---------------------------------Padding(padding: EdgeInsets, child: Widget)<br>Material--------------------------------Material(color: Colors.red,  child: Widget)<br>Column----------------------------------Column(children: <Widget>[ ]);<br>Row-------------------------------------Row(children: <Widget>[ ]);<br>Text------------------------------------Text(title: &#39;&#39;, style: TextStyle(color: , ontSize: 20.0, fontWeight:FontWeight.bold ))<br>MaterialPageRoute-----------------------MaterialPageRoute(builder :  (BuildContext context){return widget} )</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
