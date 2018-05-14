@@ -2657,8 +2657,46 @@ try {
 
   }
 </code></pre><h1 id="-widget-set">视图集合 Widget Set</h1>
-<p>MaterialApp-----------------------------MaterialApp(title: &#39;&#39;, theme: ThemeData , home: Widget)<br>Padding---------------------------------Padding(padding: EdgeInsets, child: Widget)<br>Material--------------------------------Material(color: Colors.red,  child: Widget)<br>Column----------------------------------Column(children: <Widget>[ ]);<br>Row-------------------------------------Row(children: <Widget>[ ]);<br>Text------------------------------------Text(title: &#39;&#39;, style: TextStyle(color: , ontSize: 20.0, fontWeight:FontWeight.bold ))<br>MaterialPageRoute-----------------------MaterialPageRoute(builder :  (BuildContext context){return widget} )</p>
+<pre><code>MaterialApp-----------------------------MaterialApp(title: &#39;&#39;, theme: ThemeData , home: Widget)
+Padding---------------------------------Padding(padding: EdgeInsets, child: Widget)
+Material--------------------------------Material(color: Colors.red,  child: Widget , type: MaterialType.circle)
+Column----------------------------------Column(children: &lt;Widget&gt;[ ] , crossAxisAlignment: CrossAxisAlignment.end);
+Row-------------------------------------Row(children: &lt;Widget&gt;[ ] , crossAxisAlignment: CrossAxisAlignment.start || mainAxisAlignment: MainAxisAlignment.spaceAround  MainAxisAlignment.center);
+Text------------------------------------Text(title: &#39;&#39;,textAlign: TextAlign.left , style: TextStyle(color: , ontSize: 20.0, fontWeight:FontWeight.bold ))
+MaterialPageRoute-----------------------MaterialPageRoute(builder :  (BuildContext context){return widget} )
+Scaffold--------------------------------Scaffold(appBar: new AppBar(title:Text) , body:new Center(child: widget) , bottomNavigationBar: Material【widget】,backgroundColor: Colors.red)
+AppBar----------------------------------AppBar(title:Text ,centerTitle: true )
+Center----------------------------------Center(child: widget))
+TabBarView------------------------------TabBarView(children: &lt;Widget&gt;[ ] ， controller： TabController);
+TabController---------------------------TabController( length: int , listener:(){xxx} , vsync: this)
+IconTab---------------------------------IconTab( icon:  , color:  , text:&#39;&#39;)
+ListView.builder------------------------ListView.builder(itemCount: int ,itemBuilder ： (BuildContext context, int index) =&gt; widget )
+InkWell---------------------------------InkWell(onTap:(){xxx}, child: widget)
+SizedBox--------------------------------SizedBox( width: float, height: float, child: Card( child: widget))
+Expanded--------------------------------Expanded(child: widget)
+Container-------------------------------Container(child: widget , margin:EdgeInsets)
+Divider---------------------------------Divider( height: float,  color : Colors.red )
+Image.network---------------------------Image.network(url:&#39;&#39; , width: float,height: float ,  fit: BoxFit.cover)
+RichText--------------------------------RichText(text: new TextSpan( text: &#39;&#39; , style:  TextStyle(color: , ontSize: 20.0, fontWeight:FontWeight.bold ) ))
+Stack-----------------------------------Stack( children: &lt;Widget&gt;[] )
+SingleChildScrollView-------------------SingleChildScrollView(child: widget)
+SizedBox.fromSize-----------------------SizedBox.fromSize( size: Size.fromHeight( height: int) , child: widget )
+Positioned------------------------------Positioned(top: float, left: float , child : widget)
+BackButton------------------------------BackButton(color: color.white)
+IconTheme-------------------------------IconTheme( data: IconThemeData(color: Colors.black) , child: widget );
+PageView.builder------------------------PageView.builder( physics: AlwaysScrollableScrollPhysics, controller:PageController , itemBuilder:  (BuildContext context, int index) =&gt; widget  )
+Image-----------------------------------Image( image: AssetImage(url； &#39;assets/images/ic_main_tab_my_pre.png&#39; ) , height : float , width : float )
+GestureDetector-------------------------GestureDetector(onTap: () {xxx},  child: widget );
+showDialog------------------------------showDialog(context: context, child: new AlertDialog(content: Text))
+AlertDialog-----------------------------AlertDialog(content: Text)
+CircleAvatar----------------------------CircleAvatar( radius: 35.0, backgroundImage:new NetworkImage(&#39;url.jpg&#39;)
 
+
+CustomScrollView---------------------------------CustomScrollView(slivers: &lt;Widget&gt;[ new SliverAppBar( expandedHeight: float, flexibleSpace：FlexibleSpaceBar) , 
+new SliverList( delegate: SliverChildListDelegate(&lt;Widget&gt;[ ]) ] )
+TabBar----------------------------------TabBar(controller: TabController , tabs: &lt;IconTab&gt;[ IconTab( icon:  , color:  , text:&#39;&#39;) ]  ,
+labelStyle : TextStyle , labelColor:  Colors.red ,indicatorSize: TabBarIndicatorSize.tab , indicatorColor: Theme.of(context).primaryColor)
+</code></pre>
 </body>
 </html>
 <!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
